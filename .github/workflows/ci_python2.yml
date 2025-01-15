@@ -3,7 +3,8 @@ name: CI
 on:
   push:
     branches:
-      - main  # Specify the branch where you want tests to run
+      - master  # Specify the branch where you want tests to run,I changed it to master
+      - main
 
 jobs:
   build:
