@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - master  # Specify the branch where you want tests to run,I changed it to master
+      - master  # Specify the branch where you want tests to run
       - main
 
 jobs:
@@ -15,18 +15,13 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Set up Python 2.7
-        # uses: actions/setup-python@v4 due to https://github.com/actions/setup-python/issues/672:
-        # https://github.com/MatteoH2O1999/setup-python
-        # This action tries to build from source all Python versions that actions/setup-python
-        # does not support. It also allows to cache built versions so that after the first run,
-        # installation time is really low. Hope it works also with 20.04, else it needs more changes:
+        # Uses a custom setup-python action due to issues with official setup-python
         uses: MatteoH2O1999/setup-python@v1
         with:
           python-version: 2.7
           allow-build: info
           cache-build: true
           cache: pip
-
 
       - name: Install dependencies
         run: pip install pygame
@@ -45,7 +40,6 @@ jobs:
 
       - name: Build Executable
         run: |
-          # Replace with your build command
           pyinstaller --onefile contact_manager_solution.py
           # Create the "artifacts" directory if it doesn't exist
           mkdir -p artifacts
@@ -53,7 +47,7 @@ jobs:
           mv dist/contact_manager_solution artifacts/
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3  # Updated to the latest version
         with:
           name: ContactManagerPython2
           path: artifacts
