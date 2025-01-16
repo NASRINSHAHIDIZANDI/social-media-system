@@ -12,10 +12,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2  # Updated to use v2, which is more stable than v1
 
       - name: Set up Python 2.7
-        # Uses a custom setup-python action due to issues with official setup-python
         uses: MatteoH2O1999/setup-python@v1
         with:
           python-version: 2.7
@@ -47,7 +46,7 @@ jobs:
           mv dist/contact_manager_solution artifacts/
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3  # Updated to the latest version
+        uses: actions/upload-artifact@v3  # Corrected to use v3
         with:
           name: ContactManagerPython2
           path: artifacts
